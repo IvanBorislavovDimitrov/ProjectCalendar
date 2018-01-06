@@ -10,16 +10,21 @@ import java.util.HashMap;
 
 public class MainController {
 
-    @FXML
-    private DatePicker datePicker;
+    @FXML private DatePicker datePicker;
+
+    @FXML private TaskController taskController;
 
     private HashMap<String, TableView<Task>> currentDayTasks;
 
-    private TaskController taskController;
+
+    public void initialize() {
+        this.taskController.injectMainController(this);
+    }
 
     public MainController() {
         this.currentDayTasks = new HashMap<>();
-        this.taskController = new TaskController(this.datePicker, this.currentDayTasks);
+        this.taskController = new TaskController();
+
     }
 
     public void changeDate() {
@@ -28,9 +33,7 @@ public class MainController {
 
     @FXML
     private void createNewTask() throws IOException {
-        this.taskController.setDatePicker(this.datePicker);
         this.taskController.showAddForm();
-
     }
 
     public HashMap<String, TableView<Task>> getCurrentDayTasks() {
@@ -40,4 +43,13 @@ public class MainController {
     public void setCurrentDayTasks(HashMap<String, TableView<Task>> currentDayTasks) {
         this.currentDayTasks = currentDayTasks;
     }
+
+    public DatePicker getDatePicker() {
+        return datePicker;
+    }
+
+    public void setDatePicker(DatePicker datePicker) {
+        this.datePicker = datePicker;
+    }
+
 }

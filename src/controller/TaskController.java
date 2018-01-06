@@ -28,19 +28,12 @@ public class TaskController {
     @FXML
     private Button cancelButton;
 
-    private DatePicker datePicker;
-    private HashMap<String, TableView<Task>> currentDayTasks;
     private Stage window;
 
-    public TaskController(DatePicker datePicker, HashMap<String, TableView<Task>> currentDayTasks) {
-        this.hourField = new TextField();
-        this.descriptionField = new TextArea();
-        this.locationField = new TextField();
-        this.addButton = new Button();
-        this.cancelButton = new Button();
+    private MainController mainController;
 
-        this.datePicker = datePicker;
-        this.currentDayTasks = currentDayTasks;
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public TaskController() { }
@@ -64,25 +57,23 @@ public class TaskController {
         task.setHour(hour);
         task.setDescription(description);
         task.setLocation(location);
-        String currentDate = this.datePicker.getValue().toString();
-        if (!this.currentDayTasks.containsKey(currentDate)) { // null pointer exception
-            this.currentDayTasks.put(this.datePicker.getValue().toString(), new TableView<>());
-            this.currentDayTasks.get(this.datePicker.getValue().toString()).getItems().add(task);
+
+        HashMap<String, TableView<Task>> currentDayTasks = this.mainController.getCurrentDayTasks();
+        DatePicker datePicker = this.mainController.getDatePicker();
+
+        String currentDate = datePicker.getValue().toString();
+
+        if (!currentDayTasks.containsKey(currentDate)) { // null pointer exception
+            currentDayTasks.put(datePicker.getValue().toString(), new TableView<>());
+            currentDayTasks.get(datePicker.getValue().toString()).getItems().add(task);
         } else {
-            this.currentDayTasks.get(this.datePicker.getValue().toString()).getItems().add(task);
+            currentDayTasks.get(datePicker.getValue().toString()).getItems().add(task);
         }
         this.window.close();
-    }
-
-    public DatePicker getDatePicker() {
-        return datePicker;
-    }
-
-    public void setDatePicker(DatePicker datePicker) {
-        this.datePicker = datePicker;
     }
 
     public void cancelAdding() {
         this.window.close();
     }
+
 }
