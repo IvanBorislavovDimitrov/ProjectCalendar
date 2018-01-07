@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
-import javafx.scene.layout.VBox;
 import model.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 public class TaskController {
 
@@ -36,16 +32,15 @@ public class TaskController {
         this.mainController = mainController;
     }
 
-    public TaskController() { }
-
     public void showAddForm() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/addView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/AddView.fxml"));
 
         this.window = new Stage();
         this.window.setTitle("Create task");
 
         this.window.setScene(new Scene(root));
         this.window.show();
+        this.window.close();
     }
 
     @FXML
@@ -53,17 +48,15 @@ public class TaskController {
         String description = this.descriptionField.getText();
         String hour = this.hourField.getText();
         String location = this.locationField.getText();
-        Task task = new Task();
-        task.setHour(hour);
-        task.setDescription(description);
-        task.setLocation(location);
+
+        Task task = new Task(hour, location, description);
 
         HashMap<String, TableView<Task>> currentDayTasks = this.mainController.getCurrentDayTasks();
         DatePicker datePicker = this.mainController.getDatePicker();
 
         String currentDate = datePicker.getValue().toString();
 
-        if (!currentDayTasks.containsKey(currentDate)) { // null pointer exception
+        if (!currentDayTasks.containsKey(currentDate)) {
             currentDayTasks.put(datePicker.getValue().toString(), new TableView<>());
             currentDayTasks.get(datePicker.getValue().toString()).getItems().add(task);
         } else {

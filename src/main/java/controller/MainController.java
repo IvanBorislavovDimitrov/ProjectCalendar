@@ -10,21 +10,21 @@ import java.util.HashMap;
 
 public class MainController {
 
+    @FXML private TableView<Task> tasks;
+
     @FXML private DatePicker datePicker;
 
     @FXML private TaskController taskController;
 
     private HashMap<String, TableView<Task>> currentDayTasks;
 
-
-    public void initialize() {
+    @FXML private void initialize() {
         this.taskController.injectMainController(this);
+        this.taskController = new TaskController();
     }
 
     public MainController() {
         this.currentDayTasks = new HashMap<>();
-        this.taskController = new TaskController();
-
     }
 
     public void changeDate() {
