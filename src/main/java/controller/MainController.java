@@ -25,6 +25,7 @@ public class MainController {
 
     public MainController() {
         this.currentDayTasks = new HashMap<>();
+        this.taskController = new TaskController();
     }
 
     public void changeDate() {

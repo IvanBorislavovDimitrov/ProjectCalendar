@@ -40,7 +40,6 @@ public class TaskController {
 
         this.window.setScene(new Scene(root));
         this.window.show();
-        this.window.close();
     }
 
     @FXML
