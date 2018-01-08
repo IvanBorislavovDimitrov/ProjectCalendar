@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -30,6 +31,10 @@ public class TaskController {
 
     public void injectMainController(MainController mainController) {
         this.mainController = mainController;
+    }
+
+    @FXML private void initialize() throws IOException {
+        this.mainController = new MainController();
     }
 
     public void showAddForm() throws IOException {

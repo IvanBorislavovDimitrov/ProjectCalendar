@@ -20,7 +20,6 @@ public class MainController {
 
     @FXML private void initialize() {
         this.taskController.injectMainController(this);
-        this.taskController = new TaskController();
     }
 
     public MainController() {
