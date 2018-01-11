@@ -33,10 +33,6 @@ public class TaskController {
         this.mainController = mainController;
     }
 
-    @FXML private void initialize() throws IOException {
-        this.mainController = new MainController();
-    }
-
     public void showAddForm() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/AddView.fxml"));
 
